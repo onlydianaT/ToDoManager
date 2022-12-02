@@ -12,9 +12,6 @@ public class TodoServer {
     private int port = 8989;
     private Todos todos = new Todos();
     private Map<String, String> objectT = new HashMap<>();
-    //private List action=new ArrayList<>();
-    // private List task=new ArrayList<>();
-
 
     public TodoServer(int port, Todos todos) {
         this.port = port;
@@ -39,7 +36,7 @@ public class TodoServer {
                     String fileIn = in.readLine();
                     JSONParser parser = new JSONParser();
                     try {
-                        Object object = parser.parse(new FileReader(fileIn));
+                        Object object = parser.parse(fileIn);
                         String jsonText = JSONValue.toJSONString(object).toLowerCase();
                         Map<String, String> result =
                                 new ObjectMapper().readValue(jsonText, HashMap.class);
@@ -86,14 +83,8 @@ public class TodoServer {
                     } catch (IOException | ParseException e) {
                         e.printStackTrace();
                     }
-
                     List tasks = todos.getAllTasks();
-                    File fileOut = new File("reply.txt");
-                    try (FileWriter files = new FileWriter(fileOut)) {
-                        files.write(tasks.toString());
-                        files.flush();
-                        out.println(fileOut);
-                    }
+                    out.println(tasks);
                 } catch (IOException e) {
                     System.out.println("Не могу стартовать сервер");
                     e.printStackTrace();

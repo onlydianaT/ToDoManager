@@ -37,25 +37,9 @@ public class Client {
                 object.put("task", word[1]);
             }
             String json = new Gson().toJson(object);
-            File fileOut = new File("reply.json");
-            try (FileWriter files = new FileWriter(fileOut)) {
-                files.write(json.toString());
-                files.flush();
-                out.println(fileOut);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            out.println(json);
             String reply = in.readLine();
-            File file = new File(reply);
-            try (InputStreamReader inr = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
-                System.out.println("To-do list:");
-                while (inr.ready()) {
-                    char read = (char) inr.read();
-                    System.out.print(read);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            System.out.println("To-do list: " + reply);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
