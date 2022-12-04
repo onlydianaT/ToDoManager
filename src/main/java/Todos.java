@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Todos {
-    private List<String> list = new ArrayList<>();
+    private TreeSet<String> list = new TreeSet<>();
     private int maxTasks = 7;
     private File fileAction = new File("actions.txt");
     private File fileTasks = new File("tasks.txt");
@@ -17,14 +17,13 @@ public class Todos {
     }
 
     public void removeTask(String task) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equals(task)) {
-                list.remove(i);
-            }
-        }
-    }
+       if (list.contains(task)) {
+                list.remove(task);
 
-    public void restoreTask(List action, List task) throws IOException {
+            }
+           }
+
+    public void restoreTask(List<String> action, List<String> task) throws IOException {
         String act = (String) action.get(action.size() - 1);
         if (act.equals("add")) {
             int sizeAction = action.size();
@@ -68,8 +67,7 @@ public class Todos {
         }
     }
 
-    public List<String> getAllTasks() {
-        Collections.sort(list);
+    public TreeSet<String> getAllTasks() {
         return list;
     }
 }

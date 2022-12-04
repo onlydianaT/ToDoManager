@@ -47,7 +47,7 @@ public class TodoServer {
                             }
                         }
                         if (fileAction.exists()) {
-                            List action = new ArrayList<>();
+                            List<String> action = new ArrayList<>();
                             try (BufferedReader inr = new BufferedReader(new FileReader(fileAction))) {
                                 String line = inr.readLine();
                                 String[] read = line.split(" ");
@@ -63,7 +63,7 @@ public class TodoServer {
                                 }
                             }
                             if (fileTasks.exists()) {
-                                List task = new ArrayList<>();
+                                List<String> task = new ArrayList<>();
                                 try (BufferedReader inr = new BufferedReader(new FileReader(fileTasks))) {
                                     String line = inr.readLine();
                                     String[] read = line.split(" ");
@@ -83,8 +83,12 @@ public class TodoServer {
                     } catch (IOException | ParseException e) {
                         e.printStackTrace();
                     }
-                    List tasks = todos.getAllTasks();
-                    out.println(tasks);
+                    String line ="";
+                    TreeSet<String> tasks = todos.getAllTasks();
+                    for (String value:tasks){
+                        line = line + " " + value;
+                    }
+                    out.println(line);
                 } catch (IOException e) {
                     System.out.println("Не могу стартовать сервер");
                     e.printStackTrace();
